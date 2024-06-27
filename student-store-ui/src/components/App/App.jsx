@@ -56,12 +56,46 @@ function App() {
   const handleOnCheckout = async () => {
     try {
       setIsCheckingOut(true);
-
+  
+      // Fetch products (assuming fetchProducts() function fetches all products)
+      const response = await axios.get("http://localhost:3000/products");
+      const products = response.data;
+  
+      // Prepare order items
+      const orderItems = Object.keys(cart).map((key) => ({
+        product_id: parseInt(key),
+        quantity: cart[key],
+        price: 0, // Initially set to 0
+      }));
+  
+      // Update prices in orderItems based on fetched products
+      orderItems.forEach((item) => {
+        const product = products.find((product) => product.id === item.product_id);
+        if (product) {
+          item.price = product.price; // Set the correct price from fetched products
+        } else {
+          throw new Error(`Product with id ${item.product_id} not found`);
+        }
+      });
+  
+      // Calculate total price based on order items
+      let totalPrice = orderItems.reduce((total, item) => total + (item.quantity * item.price), 0);
+  
+      // Prepare order data with a default customer_id
+      const orderData = {
+        customer_id: 1, // Replace with your default customer_id value
+        status: "pending", // Example status, adjust as needed
+        total_price: totalPrice,
+        OrderItem: orderItems,
+      };
+  
+      console.log("orderData");
+      console.log(orderData);
       // Make POST request to create order
-      const response = await axios.post("http://localhost:3000/orders");
-
+      const orderResponse = await axios.post("http://localhost:3000/orders", orderData);
+  
       // Handle success
-      setOrder(response.data);
+      setOrder(orderResponse.data);
       setCart({});
       setIsCheckingOut(false);
       setError(null);
@@ -71,6 +105,9 @@ function App() {
       setIsCheckingOut(false);
     }
   };
+  
+  
+  
 
   return (
     <div className="App">
