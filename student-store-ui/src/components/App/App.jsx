@@ -65,7 +65,7 @@ function App() {
       const orderItems = Object.keys(cart).map((key) => ({
         product_id: parseInt(key),
         quantity: cart[key],
-        price: 0, // Initially set to 0
+        price: 0,
       }));
   
       // Update prices in orderItems based on fetched products
@@ -83,8 +83,8 @@ function App() {
   
       // Prepare order data with a default customer_id
       const orderData = {
-        customer_id: 1, // Replace with your default customer_id value
-        status: "pending", // Example status, adjust as needed
+        customer_id: 1,
+        status: "complete",
         total_price: totalPrice,
         OrderItem: orderItems,
       };
