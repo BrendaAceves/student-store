@@ -45,7 +45,7 @@ const getProductById = async (req, res) => {
         if (product) {
             res.status(200).json(product);
         } else {
-            res.status(404).json({ error: "Product not found" });
+            res.status(404).json({ error: "Order not found" });
         }
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -69,7 +69,7 @@ const updateProduct = async (req, res) => {
         if (updatedProduct) {
             res.status(200).json(updatedProduct);
         } else {
-            res.status(404).json({ error: "Product not found" });
+            res.status(404).json({ error: "Order not found" });
         }
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -80,11 +80,11 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
     try {
         const deletedProduct = await productModel.deleteProduct(req.params.id);
-        
+
         if (deletedProduct) {
             res.status(200).json(deletedProduct);
         } else {
-            res.status(404).json({ error: "Product not found" });
+            res.status(404).json({ error: "Order not found" });
         }
     } catch (error) {
         res.status(400).json({ error: error.message });

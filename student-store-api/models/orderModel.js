@@ -23,6 +23,7 @@ const getAllOrders = async () => {
 
 // Function to create a new order
 const createNewOrder = async (orderData) => {
+    console.log(orderData);
     const { OrderItem: orderItems, ...rest } = orderData;
     // Create the order and obtain its ID
     const createdOrder = await prisma.orders.create({
