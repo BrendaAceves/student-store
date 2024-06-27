@@ -75,6 +75,7 @@ const addItemsToOrder = async (req, res) => {
     }
 };
 
+
 // Function to calculate and return total price of an order
 const getTotalPrice = async (req, res) => {
     try {

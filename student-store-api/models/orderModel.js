@@ -41,6 +41,7 @@ const createNewOrder = async (orderData) => {
     return createdOrder;
 };
 
+// Function to update an order
 // Function to update an order including its OrderItems
 const updateOrder = async (order_id, orderData) => {
     try {
@@ -94,48 +95,40 @@ const deleteOrder = async (order_id) => {
 
 
 const addItemsToOrder = async (order_id, orderItems) => {
-    const createdOrderItems = await Promise.all(
-        orderItems.map(async (item) => {
-            const { product_id, quantity, price } = item;
-            const createdItem = await prisma.orderItem.create({
-                data: {
-                    order_id: parseInt(order_id),
-                    product_id,
-                    quantity,
-                    price,
-                },
-            });
-            return createdItem;
-        })
-    );
-};
-
-
-const getTotalPrice = async (order_id) => {
+    // Validate orderItems to ensure it's an array and not empty
+    if (!Array.isArray(orderItems) || orderItems.length === 0) {
+        throw new Error('Order items must be a non-empty array.');
+    }
     try {
-        // Fetch the order along with its items
-        const order = await prisma.orders.findUnique({
-            where: { order_id: parseInt(order_id) },
-            include: {
-                OrderItem: true,
-            },
+        // Ensure order exists
+        const existingOrder = await prisma.orders.findUnique({
+            where: { order_id: parseInt(order_id) }, // Convert order_id to integer
         });
-
-        if (!order) {
+        if (!existingOrder) {
             throw new Error('Order not found.');
         }
-
-        // Calculate total price based on order items
-        let totalPrice = 0;
-        order.OrderItem.forEach(item => {
-            totalPrice += item.quantity * item.price;
-        });
-
-        return totalPrice;
+        // Create OrderItem entries
+        const createdOrderItems = await Promise.all(
+            orderItems.map(async (item) => {
+                const { product_id, quantity, price } = item;
+                const createdItem = await prisma.orderItem.create({
+                    data: {
+                        order_id: parseInt(order_id), // Convert order_id to integer
+                        product_id,
+                        quantity,
+                        price,
+                    },
+                });
+                return createdItem;
+            })
+        );
+        return createdOrderItems;
     } catch (error) {
-        throw new Error(`Failed to calculate total price of order: ${error.message}`);
+        throw new Error(`Failed to add items to order: ${error.message}`);
     }
 };
+
+
 
 module.exports = {
     getAllOrders,
@@ -144,5 +137,4 @@ module.exports = {
     updateOrder,
     deleteOrder,
     addItemsToOrder,
-    getTotalPrice,
 };
