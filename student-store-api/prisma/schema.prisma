@@ -8,34 +8,31 @@ datasource db {
 }
 
 model Orders {
-  id            Int        @id @default(autoincrement())
-  order_id      Int
-  customer_id   Int      
-  total_price   Decimal
-  status        String
-  created_at    DateTime
-  orderItems    OrderItem[]
+  order_id    Int         @id @default(autoincrement())
+  customer_id Int
+  total_price Float
+  status      String
+  created_at  DateTime   @default(now())
+  OrderItem  OrderItem[]
 }
 
 model OrderItem {
-  id            Int        @id @default(autoincrement())
-  orderId       Int
-  product_id    Int        @unique
-  quantity      Int
-  price         Decimal
+  order_item_id    Int     @id @default(autoincrement())
+  order_id         Int
+  product_id       Int     @unique
+  quantity         Int
+  price            Float
 
-  order         Orders     @relation(fields: [orderId], references: [id])
-  product       Products   @relation(fields: [product_id], references: [id])
-
+  product Products @relation(fields: [product_id], references: [id])
+  order   Orders   @relation(fields: [order_id], references: [order_id])
 }
 
 model Products {
-  id            Int        @id @default(autoincrement())
-  name          String
-  category      String
-  image_url     String
-  description   String
-  price         Decimal 
-
-  orderItem     OrderItem?
+  id          Int        @id @default(autoincrement())
+  name        String
+  category    String
+  image_url   String
+  description String?
+  price       Float
+  OrderItem   OrderItem[]
 }

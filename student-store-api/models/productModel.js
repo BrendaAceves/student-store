@@ -1,46 +1,19 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-
-// Helper Function - Sorting Products
-const sortProducts = (sortQuery) => {
-    switch (sortQuery) {
-        case 'price':
-            return { price: 'asc' };
-        case 'name':
-            return { name: 'asc' };
-        default:
-            return null; // Return null for default sort (by id)
-    }
-};
-
 // Function to get all products optionally filtered by category and sorted
-const getAllProducts = async (categoryQuery, sortQuery) => {
-    console.log("Category query:", categoryQuery);
-    console.log("Sort by:", sortQuery);
-
-    let products;
-
-    // Default sort by id if sortQuery is not provided or is invalid
-    const defaultSort = { id: 'asc' };
-
-    if (categoryQuery) {
-        products = await prisma.products.findMany({
-            where: { category: { equals: categoryQuery.toLowerCase() } },
-            orderBy: sortProducts(sortQuery) || defaultSort 
-        });
-    } else {
-        products = await prisma.products.findMany({
-            orderBy: sortProducts(sortQuery) || defaultSort
-        });
-    }
-
-    return products;
+const getAllProducts = async (filter = {}, orderBy = {}) => {
+    return prisma.products.findMany({
+        where: filter,
+        orderBy: orderBy,
+    });
 };
 
 // Function to get a product by ID
 const getProductById = async (id) => {
-    return prisma.products.findUnique({ where: { id: parseInt(id) } });
+    return prisma.products.findUnique({ 
+        where: { id: parseInt(id) },  
+    });
 };
 
 // Function to create a new product

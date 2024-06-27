@@ -1,48 +1,41 @@
 const productModel = require("../models/productModel");
 
-// Get All Products
+// Function gets all the cars
 const getAllProducts = async (req, res) => {
+    const { category, sort } = req.query;
+    let filter = {}; //filter object
+    let orderBy = {}; //orderBy - asc/desc
+    console.log(sort);
+
+    if (category) {
+        filter.category = category;
+    }
+
+    if (sort) {
+        if (sort === "price") {
+            console.log("Sort by price");
+            orderBy = { price: 'asc'};
+        } else if (sort === "name") {
+            console.log("Sort by name");
+            orderBy = { name: "asc" };
+        } else {
+            console.log("Sort by id");
+            orderBy = { id: "asc" };
+        }
+    // If the user enters an invalid or no sorting option, sort by id
+    } else {
+        console.log("Sort by id");
+        orderBy = { id: "asc" };
+    }
+
     try {
-        let categoryQuery = req.query.category ? req.query.category : null;
-        let sortQuery = req.query.sort ? req.query.sort: null;
-        const products = await productModel.getAllProducts(categoryQuery, sortQuery);
+        const products = await productModel.getAllProducts(filter, orderBy);
         res.status(200).json(products);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
 
-
-// // Fetch all products
-// app.get('/products', (req, res) => {
-//     let filteredProducts = [...products];
-//     console.log("Products", products);
-
-//     // Update route to filter by category and sorting by price or name
-//     if (req.query.category) {
-//         console.log("User made a category request query:", req.query.category);
-    
-//     filteredProducts = filteredProducts.filter(
-//         (product) => product.category.toLowerCase() === req.query.category.toLowerCase()
-//     );
-//     }
-//     // Implement sorting by price or name
-//     if (req.query.sort) {
-//         let sortBy = req.query.sort;
-//         console.log(sortBy);
-
-//         if (sortBy.toLowerCase() === 'price') {
-//             console.log("Sort by price");
-//             filteredProducts.sort((a,b) => a.price - b.price);
-//         } 
-//         else if (sortBy.toLowerCase() === 'name') {
-//             console.log("Sort by name");
-//             filteredProducts.sort((a,b) => a.name.localeCompare(b.name));            
-//         }
-//     }
-//     res.json(filteredProducts);
-
-// })
 
 
 // Get product by id
@@ -97,6 +90,8 @@ const deleteProduct = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+
 
 // Export the functions
 module.exports = {

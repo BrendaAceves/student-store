@@ -15,13 +15,30 @@ function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All Categories");
   const [searchInputValue, setSearchInputValue] = useState("");
-  const [userInfo, setUserInfo] = useState({ name: "", dorm_number: ""});
+  const [userInfo, setUserInfo] = useState({ name: "", dorm_number: "" });
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState({});
   const [isFetching, setIsFetching] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [error, setError] = useState(null);
   const [order, setOrder] = useState(null);
+
+  // Fetch products on component mount
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        setIsFetching(true);
+        const response = await axios.get("http://localhost:3000/products");
+        setProducts(response.data);
+        setIsFetching(false);
+      } catch (error) {
+        setError(error.message);
+        setIsFetching(false);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   // Toggles sidebar
   const toggleSidebar = () => setSidebarOpen((isOpen) => !isOpen);
@@ -37,8 +54,23 @@ function App() {
   };
 
   const handleOnCheckout = async () => {
-  }
+    try {
+      setIsCheckingOut(true);
 
+      // Make POST request to create order
+      const response = await axios.post("http://localhost:3000/orders");
+
+      // Handle success
+      setOrder(response.data);
+      setCart({});
+      setIsCheckingOut(false);
+      setError(null);
+    } catch (error) {
+      // Handle error
+      setError(error.message);
+      setIsCheckingOut(false);
+    }
+  };
 
   return (
     <div className="App">
@@ -116,4 +148,3 @@ function App() {
 }
 
 export default App;
- 

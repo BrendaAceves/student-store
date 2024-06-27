@@ -17,4 +17,10 @@ router.put("/:id", orderController.updateOrder);
 // Delete a product
 router.delete("/:id", orderController.deleteOrder);
 
+// Add items to existing order
+router.post("/:id/items", orderController.addItemsToOrder);
+
+// Calculates and returns total price of order
+router.get("/:order_id/total", orderController.getTotalPrice);
+
 module.exports = router;
