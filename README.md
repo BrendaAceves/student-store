@@ -56,9 +56,25 @@ Deployed Application (optional): [Student Store Deployed Site](ADD_LINK_HERE)
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. (🚫 Remove this paragraph after adding walkthrough video)
+Walkthrough Video 1: Frontend, Database and Models
+<div>
+    <a href="https://www.loom.com/share/fcf0aab10f0c4ee68bae717665d906e3">
+      <p>Private Video - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/fcf0aab10f0c4ee68bae717665d906e3">
+      <img style="max-width:300px;" src="https://cdn.loom.com/placeholders/private-video.gif">
+    </a>
+  </div>
 
-`ADD_EMBEDDED_CODE_HERE`
+Walkthrough Video 2: Endpoint Testing
+<div>
+    <a href="https://www.loom.com/share/1c46b2dd4a1a4367a4eb3db4e98fe907">
+      <p>Private Video - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/1c46b2dd4a1a4367a4eb3db4e98fe907">
+      <img style="max-width:300px;" src="https://cdn.loom.com/placeholders/private-video.gif">
+    </a>
+  </div>
 
 ### Reflection
 
