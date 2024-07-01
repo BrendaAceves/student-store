@@ -58,21 +58,21 @@ Deployed Application (optional): [Student Store Deployed Site](ADD_LINK_HERE)
 
 Walkthrough Video 1: Frontend, Database and Models
 <div>
-    <a href="https://www.loom.com/share/fcf0aab10f0c4ee68bae717665d906e3">
-      <p>Private Video - Watch Video</p>
+    <a href="https://www.loom.com/share/969b5740675c4058b16bb2d3ca54dbf8">
+      <p>Prisma Studio - 1 July 2024 - Watch Video</p>
     </a>
-    <a href="https://www.loom.com/share/fcf0aab10f0c4ee68bae717665d906e3">
-      <img style="max-width:300px;" src="https://cdn.loom.com/placeholders/private-video.gif">
+    <a href="https://www.loom.com/share/969b5740675c4058b16bb2d3ca54dbf8">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/969b5740675c4058b16bb2d3ca54dbf8-with-play.gif">
     </a>
-  </div>
+</div>
 
 Walkthrough Video 2: Endpoint Testing
 <div>
-    <a href="https://www.loom.com/share/1c46b2dd4a1a4367a4eb3db4e98fe907">
-      <p>Private Video - Watch Video</p>
+    <a href="https://www.loom.com/share/2e941fe89f5c4d0c890413003ed74d12">
+      <p>Student Store - 1 July 2024 - Watch Video</p>
     </a>
-    <a href="https://www.loom.com/share/1c46b2dd4a1a4367a4eb3db4e98fe907">
-      <img style="max-width:300px;" src="https://cdn.loom.com/placeholders/private-video.gif">
+    <a href="https://www.loom.com/share/2e941fe89f5c4d0c890413003ed74d12">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/2e941fe89f5c4d0c890413003ed74d12-with-play.gif">
     </a>
   </div>
 
